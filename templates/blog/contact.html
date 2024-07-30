@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<h1>Contact Us</h1>
+<div class="row">
+    <div class="col-md-6">
+        <h3>Get Updates</h3>
+        <form method="post" action="{% url 'blog:subscribe' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="sub_email">Email</label>
+                <input type="email" class="form-control" id="sub_email" name="sub_email" placeholder="Enter your email" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+        {% if email_exists %}
+        <p class="text-danger mt-2">This email is already subscribed.</p>
+        {% endif %}
+    </div>
+    <div class="col-md-6">
+        <h3>Contact Information</h3>
+        <p>Phone: +380 (12) 345 67 89</p>
+        <p>Email: info@gmail.com</p>
+        <p>Address: Robocha St., Dnipro, Ukraine</p>
+    </div>
+</div>
+{% endblock %}

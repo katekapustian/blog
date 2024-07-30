@@ -1,0 +1,42 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}{% if category %}{{ category.name }}{% else %}Products{% endif %}{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-3 sticky-categories">
+        <h3 class="text-center">Categories</h3>
+        <div class="list-group">
+            <a href="{% url 'shop:product_list' %}" class="list-group-item list-group-item-action {% if not category %}active{% endif %}">All</a>
+            {% for c in categories %}
+                <a href="{{ c.get_absolute_url }}" class="list-group-item list-group-item-action {% if category.slug == c.slug %}active{% endif %}">{{ c.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-9 products-container">
+        <h1 class="my-4 text-center sticky-header">{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+        <div class="scrollable-products">
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="{{ product.get_absolute_url }}">
+                                <img class="card-img-top" src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'shop/img/no_image.png' %}{% endif %}" alt="{{ product.name }}">
+                            </a>
+                            <div class="card-body">
+                                <h4 class="card-title text-center">
+                                    <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                                </h4>
+                                <h5 class="text-center">${{ product.price }}</h5>
+                                <p class="card-text">{{ product.description|truncatewords:10 }}</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="{{ product.get_absolute_url }}" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

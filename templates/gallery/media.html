@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<h1 class="page-header">Upload new photo</h1>
+<form action="{% url 'gallery:media' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-default">Save</button>
+</form>
+{% endblock %}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}My shop{% endblock %}</title>
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'shop/img/favicon.png' %}">
+    <link href="{% static 'shop/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Karla">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merienda">
+    <link href="{% static 'shop/css/base.css' %}" rel="stylesheet">
+    <link href="{% static 'shop/css/shop.css' %}" rel="stylesheet">
+    <link href="{% static 'shop/css/cart.css' %}" rel="stylesheet">
+    <link href="{% static 'shop/css/orders.css' %}" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand mx-auto" href="{% url 'shop:product_list' %}">My shop ♡</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cart:cart_detail' %}">
+                            Cart:
+                            <span class="badge badge-pill badge-info">
+                                {% with total_items=cart|length %}
+                                    {{ total_items }} item{{ total_items|pluralize }}, ${{ cart.get_total_price }}
+                                {% endwith %}
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link blog-link" href="{% url 'blog:index' %}">Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+    {% block extra_js %}
+    {% endblock %}
+    {% comment %} <script src="{% static 'shop/bootstrap/js/jquery.slim.min.js' %}"></script>
+    <script src="{% static 'shop/bootstrap/js/popper.min.js' %}"></script> {% endcomment %}
+    <script src="{% static 'shop/bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

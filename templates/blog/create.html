@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="container create-post-container">
+    <h1>Add new post</h1>
+    <form action="{% url 'blog:create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ post_form.as_p }}
+        {{ image_formset.management_form }}
+        <div id="image_formset">
+            {% for form in image_formset %}
+                <div class="image-form">
+                    {{ form.as_p }}
+                    {% if form.instance.pk %}
+                        <p>Currently: <a href="{{ form.instance.image.url }}">{{ form.instance.image.name }}</a></p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <button type="button" id="add-image-form" class="btn btn-secondary">Add another image</button>
+        <input type="submit" value="Save" class="btn btn-primary create-post-button">
+    </form>
+</div>
+
+{% load static %}
+<script src="{% static 'blog/js/create_post.js' %}"></script>
+{% endblock %}

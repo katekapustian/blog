@@ -1,0 +1,87 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<!-- Blog Post -->
+
+<!-- Title -->
+<h1>{{ post.title }}</h1>
+
+<!-- Author -->
+<p class="lead">by <a href="#">{{ post.user.username }}</a></p>
+
+<hr>
+
+<!-- Date/Time -->
+<p><span class="glyphicon glyphicon-time"></span> Posted on {{ post.published_date }}</p>
+
+<hr>
+
+<!-- Post Images -->
+<div class="post-images">
+    {% for image in post.images.all %}
+        <div class="post-image {% if forloop.counter > 3 %}hidden{% endif %}">
+            <img class="img-responsive" src="{{ image.image.url }}" alt="">
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Display the main image URL if no images were uploaded -->
+{% if not post.images.all and post.image %}
+    <img class="img-responsive" src="{{ post.image }}" alt="">
+{% endif %}
+
+<!-- Show More Images button -->
+{% if post.images.count > 3 %}
+    <div class="show-more-images-container">
+        <button id="show-more-images" class="btn btn-primary">Show More Images</button>
+    </div>
+{% endif %}
+
+<hr>
+
+<!-- Post Content -->
+<p class="lead">{{ post.content|linebreaksbr }}</p>
+
+<!-- Tags -->
+<p class="tags-container">
+    <span class="tags-label">Tags:</span>
+    {% for tag in post.tags.all %}
+        <a href="{% url 'blog:tag_posts' tag_name=tag.name %}" class="blog-tag">#{{ tag.name }}</a>
+    {% endfor %}
+</p>
+
+<!-- Delete Button -->
+{% if user.is_authenticated %}
+    {% if user == post.user or user.is_superuser %}
+        <a href="{% url 'blog:delete_post' post.id %}" class="btn btn-danger">Delete Post</a>
+    {% endif %}
+{% endif %}
+
+<hr>
+
+<!-- Blog Comments -->
+<h2>Comments</h2>
+
+{% for comment in comments %}
+    {% include 'blog/comment.html' with comment=comment %}
+{% endfor %}
+
+<hr>
+
+<!-- Comments Form -->
+{% if user.is_authenticated %}
+<div class="well">
+    <h4>Leave a Comment:</h4>
+    <form method="post" action="{% url 'blog:add_comment' post.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="text">Text:</label>
+            <textarea id="text" name="text" class="form-control" rows="3" placeholder="Write your comment here"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% else %}
+    <p>You need to <a href="{% url 'blog:blog_login' %}">login</a> to leave a comment.</p>
+{% endif %}
+{% endblock %}

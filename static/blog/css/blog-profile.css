@@ -1,0 +1,127 @@
+.profile-avatar {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 50%;
+}
+
+.separator {
+    height: 2px;
+    background-color: #ddd;
+    margin: 20px 0;
+    border: none;
+}
+
+.profile-container {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.profile-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-info {
+    text-align: center;
+}
+
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 20px;
+    transition: border-color 0.3s ease;
+}
+
+.profile-avatar:hover {
+    border: 5px solid #ffc400;
+}
+
+.separator {
+    height: 2px;
+    background-color: #ddd;
+    margin: 20px 0;
+}
+
+.statistics {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1.5em;
+    margin: 0 auto 10px;
+}
+
+.stat-label {
+    display: block;
+    font-weight: bold;
+    color: #555;
+}
+
+.profile-button,
+.update-profile-button {
+    display: block;
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.2em;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.profile-button:hover,
+.update-profile-button:hover {
+    background-color: #0056b3;
+}
+
+.update-profile-container {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.update-profile-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group input[type="file"] {
+    padding: 3px;
+}

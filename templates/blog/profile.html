@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>My Profile</h2>
+    <div class="profile-info">
+        {% if profile.avatar %}
+            <img src="{{ profile.avatar.url }}" alt="{{ profile.user.username }}" class="profile-avatar">
+        {% else %}
+            <p>No avatar uploaded</p>
+        {% endif %}
+        <p><strong>Username:</strong> {{ profile.user.username }}</p>
+        <p><strong>Email:</strong> {{ profile.user.email }}</p>
+        <p><strong>First Name:</strong> {{ profile.user.first_name|default:"Not provided" }}</p>
+        <p><strong>Last Name:</strong> {{ profile.user.last_name|default:"Not provided" }}</p>
+        <p><strong>Bio:</strong> {{ profile.bio|default:"No bio available"|linebreaksbr }}</p>
+        <p><strong>Phone Number:</strong> {{ profile.phone_number|default:"No phone number available" }}</p>
+        <p><strong>Location:</strong> {{ profile.location|default:"No location specified" }}</p>
+
+        <div class="separator"></div>
+
+        <h3>Statistics</h3>
+        <div class="statistics">
+            <div class="stat-item">
+                <span class="stat-number">{{ num_comments }}</span>
+                <span class="stat-label">Comments</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ num_posts }}</span>
+                <span class="stat-label">Posts</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ num_images }}</span>
+                <span class="stat-label">Images</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ days_on_site }}</span>
+                <span class="stat-label">Days on Site</span>
+            </div>
+        </div>
+        <p><strong>Date of Registration:</strong> {{ registration_date|date:"F j, Y" }}</p>
+    </div>
+    <a href="{% url 'blog:update_profile' %}" class="btn btn-primary profile-button">Edit Profile</a>
+</div>
+{% endblock %}
